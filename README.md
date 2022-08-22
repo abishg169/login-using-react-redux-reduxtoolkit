@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Stacks used
 The stack used for this project are based on [Stack Used for React](https://sidetrade-tech-hub.medium.com/modern-2020-react-stack-or-how-we-switched-away-from-angular-a9efb65d51e5)
+#### `React` `Redux` `Redux Toolkit`
 
 ## Available Scripts
 
