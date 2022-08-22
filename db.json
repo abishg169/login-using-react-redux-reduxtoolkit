@@ -1,0 +1,138 @@
+{
+    "category": [
+        {
+            "id": "1",
+            "name": "leave request"
+        },
+        {
+            "id": "2",
+            "name": "attendance request"
+        }
+    ],
+    "subcategory": [
+        {
+            "id": "1",
+            "name": "sick leave",
+            "category": "1"
+        },
+        {
+            "id": "2",
+            "name": "casual leave",
+            "category": "1"
+        },
+        {
+            "id": "3",
+            "name": "attendance edit",
+            "category": "2"
+        }
+    ],
+    "users": [
+        {
+            "id": "1",
+            "fullName": "abish gurung",
+            "email": "abishgurung169@gmail.com"
+        },
+        {
+            "id": "2",
+            "fullName": "abishek thapa",
+            "email": "abishek@gmail.com"
+        },
+        {
+            "id": "1",
+            "fullName": "Suvani Shrestha",
+            "email": "suvani@gmail.com"
+        }
+    ],
+    "leave": [
+        {
+            "id": "1",
+            "userId": "1",
+            "user": {
+                "id": "1",
+                "fullName": "abish gurung",
+                "email": "abishgurung169@gmail.com"
+            },
+            "category": {
+                "id": "1",
+                "name": "leave request"
+            },
+            "subcategory": {
+                "id": "1",
+                "name": "sick leave",
+                "category": "1"
+            }
+        },
+        {
+            "id": "2",
+            "userId": "1",
+            "user": {
+                "id": "1",
+                "fullName": "abish gurung",
+                "email": "abishgurung169@gmail.com"
+            },
+            "category": {
+                "id": "1",
+                "name": "leave request"
+            },
+            "subcategory": {
+                "id": "2",
+                "name": "casual leave",
+                "category": "1"
+            }
+        },
+        {
+            "id": "3",
+            "userId": "1",
+            "user": {
+                "id": "1",
+                "fullName": "abish gurung",
+                "email": "abishgurung169@gmail.com"
+            },
+            "category": {
+                "id": "2",
+                "name": "attendance request"
+            },
+            "subcategory": {
+                "id": "3",
+                "name": "attendance edit",
+                "category": "2"
+            }
+        },
+        {
+            "id": "4",
+            "userId": "2",
+            "user": {
+                "id": "2",
+                "fullName": "abishek thapa",
+                "email": "abishek@gmail.com"
+            },
+            "category": {
+                "id": "2",
+                "name": "attendance request"
+            },
+            "subcategory": {
+                "id": "3",
+                "name": "attendance edit",
+                "category": "2"
+            }
+        }
+    ],
+    "my-leave": [
+        {
+            "isApproved": false,
+            "request": "sick leave",
+            "dateFrom": "2022-08-25",
+            "dateTo": "2022-08-28",
+            "reason": "some reason to leave",
+            "requestState": "PROCESSING"
+        },
+        {
+            "isApproved": false,
+            "request": "casual leave",
+            "dateFrom": "2022-09-1",
+            "dateTo": "2022-08-5",
+            "reason": "some reason to leave",
+            "requestState": "PENDING"
+        }
+    ]
+}
