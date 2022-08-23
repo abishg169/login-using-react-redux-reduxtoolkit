@@ -82,6 +82,7 @@ export const I18nProvider: React.FC<Props> = ({ children }) => {
     console.log('Locale', locale)
 
     const setLocaleIfPresent = useCallback((locale: string) => {
+        console.log('enter setLocaleIfPresent')
         if (isLocalePresent(locale)) {
             console.log('SET locale', locale)
             setLocale(locale as LocaleEnum);
@@ -90,15 +91,19 @@ export const I18nProvider: React.FC<Props> = ({ children }) => {
 
     useEffect(() => {
         const { url, storage, navigator } = detectLocale();
+        console.log('using effect url storage navigator', url, storage, navigator);
 
         // if previously data was saved to storage
         if (storage) {
+            console.log('enter if (storage)')
             setLocaleIfPresent(storage)
             // if url contains ?lang= query
         } else if (url) {
+            console.log('enter if (url)')
             setLocaleIfPresent(url)
 
         } else if (navigator) {
+            console.log('enter if (navigator)', navigator)
             setLocaleIfPresent(navigator)
         }
 
@@ -111,8 +116,9 @@ export const I18nProvider: React.FC<Props> = ({ children }) => {
     };
 
     useEffect(() => {
+        console.log('load locales')
         // Dynamically load the catalogs
-        import(`../../locales/${locale}/messages`).then(module => {
+        import(`@/locales/${locale}/messages`).then(module => {
 
             const messages = module.messages;
 

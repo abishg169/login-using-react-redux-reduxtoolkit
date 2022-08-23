@@ -15,6 +15,7 @@ const PrivateRoute: React.FC<Props> = function ({
     meta = o,
     ...rest
 }) {
+    console.log('using private route')
     const authData = useAppSelector(state => state.auth)
     const isLogin = authData.isAuthenticated;
     console.log('is logged in ', authData);
@@ -29,7 +30,7 @@ const PrivateRoute: React.FC<Props> = function ({
             return <Component {...rest} />
           } else {
             console.log('is not logged in ', isLogin);
-            return <Navigate to={`/login`} replace />
+            return <Navigate to={`/login`} />
           }
     }
 
