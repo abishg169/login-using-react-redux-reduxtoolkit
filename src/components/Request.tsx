@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Stack, Badge, Switch } from "@chakra-ui/react";
+import { Box, Heading, Text, Stack, Badge } from "@chakra-ui/react";
 import React from "react";
 
 export interface IRequest {

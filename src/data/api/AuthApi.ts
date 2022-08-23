@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setToken } from "../../utils/preserved-storage";
 import { AuthDataMapper } from "../mapper/AuthDataMapper";
 import { AuthRequest } from "../models";
 
@@ -14,11 +13,9 @@ export class AuthApi {
         .then(response => {
             console.log('login response => ', response);
             console.log(`status = ${response.status} , data = ${response.data} `);
-            if (response.status >= 200 && response.status < 400) {
-                return AuthDataMapper.mapToAuth(response.data);
-            } else {
-                throw "Contact at office"
-            }
+            // if (response.status >= 200 && response.status < 400) {
+            return AuthDataMapper.mapToAuth(response.data);
+            // }
         })
         .catch(e => {
             console.log('catch login err => ', e);

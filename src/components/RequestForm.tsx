@@ -16,10 +16,10 @@ import {
     Stack
 } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import {useState, useEffect} from "react"
-import axios from "axios";
-import { apiBaseUrl } from "@/data/api/axios-constant";
-import { useAppSelector } from "@/hooks";
+import {useState} from "react"
+// import axios from "axios";
+// import { apiBaseUrl } from "@/data/api/axios-constant";
+// import { useAppSelector } from "@/hooks";
 
 type RequestFormData = {
     requestCategory: string;
@@ -30,8 +30,8 @@ type RequestFormData = {
 }
 
 const RequestForm = () =>  {
-    const {token} = useAppSelector(state => state.auth);
-    const [categoryList, setCategoryList] = useState([
+    // const {token} = useAppSelector(state => state.auth);
+    const [categoryList] = useState([
         {
             id: '62fd0195e022a251171bdcbd',
             name: 'Leave Request'
@@ -41,7 +41,7 @@ const RequestForm = () =>  {
             name: 'Attendance Request'
         }
     ]);
-    const [subcategoryList, setSubcategoryList] = useState([
+    const [subcategoryList] = useState([
         {
             id: '62fd01c1e022a251171bdcc4',
             name: 'Casual Leave',
@@ -83,7 +83,7 @@ const RequestForm = () =>  {
         let list: any = []
         // console.log('event', event)
         console.log('event', event.target.value)
-        subcategoryList.map((data: any) => {
+        subcategoryList.forEach((data: any) => {
             if (data.category === event.target.value) {
                 list.push(data);
             }
