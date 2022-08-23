@@ -8,7 +8,7 @@ import {
     fromNavigator,
     fromPath,
     fromStorage,
-    fromSubdomain,
+    // fromSubdomain,
     fromUrl,
 } from "@lingui/detect-locale"
 import { I18nContext } from './I18nContext';
