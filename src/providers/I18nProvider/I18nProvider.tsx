@@ -59,7 +59,7 @@ const detectLocale = () => {
         fromPath: fromPathResult,
         // Example: https://fr.url.com/
         // gets data from location.href
-        fromSubdomain: detect(fromSubdomain(2)),
+        // fromSubdomain: detect(fromSubdomain(2)),
     }
     console.log('Result', result);
     return result;
