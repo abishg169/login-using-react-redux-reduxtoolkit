@@ -1,3 +1,4 @@
+import Register from "@/pages/Register";
 import { useRoutes } from "react-router-dom";
 import PrivateRoute from "../components/PrivateRoute";
 import Login from "../pages/Login";
@@ -10,6 +11,10 @@ export function MainRoutes() {
         {
             path: '/login',
             element: <Login />
+        },
+        {
+            path: '/register',
+            element: <Register />
         },
         {
             path: '/',

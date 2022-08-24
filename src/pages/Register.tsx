@@ -11,46 +11,60 @@ import {
   Link,
   Avatar,
   FormControl,
-  FormHelperText
+  FormHelperText,
+  useToast,
 //   InputRightElement
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { TranslateLanguage } from "../components/TranslateLanguage";
 import { Trans } from "@lingui/macro";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/hooks";
-import { login } from "@/store/reducer/auth";
-import { setUserState } from "@/store/reducer/user";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { apiBaseUrl } from "@/data/api/axios-constant";
 
 type UserCredential = {
+    fullName: string;
     email: string;
     password: string;
 }
 
-export default function Login ()  {
+export default function Register ()  {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch()
+    const toast = useToast();
     const showPassword = false;
     const { register, handleSubmit, formState: { errors } } = useForm<UserCredential>()
     const onSubmit: SubmitHandler<UserCredential> = async (data) => {
         console.log('data is ', data)
-        const requestData = {
-            email: data.email,
-            password: data.password
+        const requestData: any = {
+            'fullName': data.fullName,
+            'email': data.email,
+            'password': data.password
         }
-        dispatch(login(requestData))
-            .unwrap()
-            .then((originalPromiseResult) => {
-              // handle result here
-              console.log('response at login component', originalPromiseResult);
-              dispatch(setUserState(originalPromiseResult.user));
-              navigate('/');
+        axios({
+            method: 'post',
+            url: `${apiBaseUrl}/api/auth/register`,
+            data: requestData
+        })
+        .then(() => {
+            toast({
+                title: 'Register',
+                description: "We've created your account for you.",
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
             })
-            .catch((rejectedValueOrSerializedError) => {
-              // handle error here
-            console.log('err at login component', rejectedValueOrSerializedError);
-            });
+            navigate('/')
+        })
+        .catch(e => {
+            toast({
+                title: 'Register',
+                description: "Failed to register user",
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+            })
+        })
     }
 
     return (
@@ -81,6 +95,23 @@ export default function Login ()  {
                                 backgroundColor="whiteAlpha.900"
                                 boxShadow="md"
                             >
+                                <FormControl>
+                                    <InputGroup>
+                                        <InputLeftElement
+                                            pointerEvents="none"
+                                            children={<FaUserAlt color="gray.300" />}
+                                        />
+                                        <Input  type="text"
+                                                {...register("fullName", {
+                                                    required: 'Fullname is required',
+                                                    }
+                                                )}
+                                                placeholder="Enter fullname" />
+                                    </InputGroup>
+                                    <div className="text-red-600 pl-2 mt-2">
+                                        {errors.fullName?.message && <span>{errors.fullName?.message}</span>}
+                                    </div>
+                                </FormControl>
                                 <FormControl>
                                     <InputGroup>
                                         <InputLeftElement
@@ -123,12 +154,9 @@ export default function Login ()  {
                                     <div className="text-red-600 pl-2 mt-2">
                                         {errors.password && <span>This field is required</span>}
                                     </div>
-                                    <Stack direction={'row'} justifyContent='space-between'>
-                                        <NavLink to={'/register'}><Link>Register</Link></NavLink>
-                                        <FormHelperText textAlign="right">
-                                            <Link>forgot password?</Link>
-                                        </FormHelperText>
-                                    </Stack>
+                                    <FormHelperText textAlign="right">
+                                        <Link>forgot password?</Link>
+                                    </FormHelperText>
                                 </FormControl>
                                 <Button
                                     borderRadius={0}
@@ -137,7 +165,7 @@ export default function Login ()  {
                                     colorScheme="teal"
                                     width="full"
                                 >
-                                    Login
+                                    Register
                                 </Button>
                             </Stack>
                         </form>
