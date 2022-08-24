@@ -16,7 +16,9 @@ import {
     Stack
 } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import {useState} from "react"
+import {useEffect, useState} from "react"
+import { CoreApi } from "@/data/api/CoreApi";
+import { Category, SubCategory } from "@/data/models";
 // import axios from "axios";
 // import { apiBaseUrl } from "@/data/api/axios-constant";
 // import { useAppSelector } from "@/hooks";
@@ -31,6 +33,7 @@ type RequestFormData = {
 
 const RequestForm = () =>  {
     // const {token} = useAppSelector(state => state.auth);
+    /* fake json
     const [categoryList] = useState([
         {
             id: '62fd0195e022a251171bdcbd',
@@ -58,37 +61,49 @@ const RequestForm = () =>  {
             category: '62fe2fc9c25fe7c7d313334b'
         }
     ]);
-    const [subcategoryOptions, setSubcategoryOptions] = useState([]);
+    */
+    // const [subcategoryList, setSubcategoryList] = useState<SubCategory[]>([])
+
+    const [categoryList, setCategoryList] = useState<Category[]>([])
+    const [subcategoryOptions, setSubcategoryOptions] = useState<SubCategory[]>([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { register, handleSubmit, formState: {errors} } = useForm<RequestFormData>();
 
-    // const getCategories = async () => {
-    //     console.log('token is', token)
-    //     await axios({
-    //         method: 'get',
-    //         url: apiBaseUrl + '/api/category/list',
-    //         headers: {
-    //             "Authorization": `Bearer ${token}`
-    //         }
-    //     })
-    //     .then()
-    // }
+    useEffect(() => {
+        getCategories()
+    }, [])
+
+    const getCategories = async () => {
+        const coreApi = new CoreApi()
+        await coreApi.getCategories().then(response => {
+            console.log('getcategories ', response)
+            setCategoryList(response)
+        })
+    }
+    
+    const getSubcategoriesByCategory = async (category: string) => {
+        const coreApi = new CoreApi()
+        await coreApi.getSubCategoriesByCategory(category).then(response => {
+            console.log('getsubcategories ', response)
+            setSubcategoryOptions(response)
+        })
+    }
 
     const onSubmit: SubmitHandler<RequestFormData> = (data) => {
         console.log('request is ', data);
     }
 
-
     const onSelectedCategory = (event: any) => {
-        let list: any = []
+        // let list: any = []
         // console.log('event', event)
         console.log('event', event.target.value)
-        subcategoryList.forEach((data: any) => {
-            if (data.category === event.target.value) {
-                list.push(data);
-            }
-        })
-        setSubcategoryOptions(list)
+        getSubcategoriesByCategory(event.target.value)
+        // subcategoryList.forEach((data: any) => {
+        //     if (data.category === event.target.value) {
+        //         list.push(data);
+        //     }
+        // })
+        // setSubcategoryOptions(list)
     }
 
     const getSubcategoryByCategoryOptions = () => {

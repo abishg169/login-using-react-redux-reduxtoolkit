@@ -1,8 +1,6 @@
+import { getToken } from "@/utils/preserved-storage";
 import axios from "axios";
-import { setToken } from "../../utils/preserved-storage";
-import { AuthDataMapper } from "../mapper/AuthDataMapper";
 import { CoreDataMapper } from "../mapper/CoreDataMapper";
-import { Category } from "../models";
 import { apiBaseUrl } from "./axios-constant";
 
 export class CoreApi {
@@ -10,9 +8,12 @@ export class CoreApi {
         const response = await axios({
             method: 'get',
             url: `${apiBaseUrl}/api/category/list`,
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            }
         })
         .then(response => {
-            console.log('login response => ', response);
+            console.log('category response => ', response);
             console.log(`status = ${response.status} , data = ${response.data} `);
             if (response.status >= 200 && response.status < 400) {
                 return CoreDataMapper.mapToCategories(response.data);
@@ -32,6 +33,9 @@ export class CoreApi {
         const response = await axios({
             method: 'get',
             url: `${apiBaseUrl}/api/subcategory/list`,
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            }
         })
         .then(response => {
             console.log('login response => ', response);
@@ -50,10 +54,13 @@ export class CoreApi {
         console.log('response response = ', response);
         return response
     }
-    async getSubCategoriesByCategory () {
+    async getSubCategoriesByCategory (category: string) {
         const response = await axios({
             method: 'get',
-            url: `${apiBaseUrl}/api/subcategory/list`,
+            url: `${apiBaseUrl}/api/subcategory/list?category=${category}`,
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            }
         })
         .then(response => {
             console.log('login response => ', response);
